@@ -87,15 +87,22 @@ def silence(path: Path, seconds: float) -> None:
     )
 
 
-def concat(parts: list[Path], out: Path) -> None:
-    """Concatenate MP3 parts by re-encoding (robust across sample sizes)."""
-    listfile = out.with_suffix(".txt")
-    # .as_posix() keeps forward slashes so the concat demuxer parses the list
-    # correctly on Windows too (backslashes would break it).
-    listfile.write_text("".join(f"file '{p.resolve().as_posix()}'\n" for p in parts))
-    ffmpeg("-f", "concat", "-safe", "0", "-i", str(listfile),
-           "-acodec", "libmp3lame", "-q:a", "4", str(out))
-    listfile.unlink(missing_ok=True)
+def concat(parts: list[Path], out: Path, tmp_dir: Path | None = None) -> None:
+    """Concatenate MP3 parts by re-encoding (robust across sample sizes).
+
+    The list file is written under tmp_dir when given, and a try/finally
+    guarantees its removal — so a failed ffmpeg never strands a stray .txt next
+    to the output.
+    """
+    listfile = (tmp_dir / "concat.txt") if tmp_dir else out.with_suffix(".txt")
+    try:
+        # .as_posix() keeps forward slashes so the concat demuxer parses the list
+        # correctly on Windows too (backslashes would break it).
+        listfile.write_text("".join(f"file '{p.resolve().as_posix()}'\n" for p in parts))
+        ffmpeg("-f", "concat", "-safe", "0", "-i", str(listfile),
+               "-acodec", "libmp3lame", "-q:a", "4", str(out))
+    finally:
+        listfile.unlink(missing_ok=True)
 
 
 def split_paragraphs(text: str) -> list[str]:
@@ -118,7 +125,7 @@ async def build_lecture(cid: str, title: str, lecture_txt: Path, out: Path) -> N
             await say(para, seg, NARRATOR, LECTURE_RATE)
             parts.append(seg)
             parts.append(gap)
-        concat(parts, out)
+        concat(parts, out, tmp)
 
 
 async def build_drill(cid: str, title: str, pack_json: Path, out: Path,
@@ -154,7 +161,7 @@ async def build_drill(cid: str, title: str, pack_json: Path, out: Path,
             await say(f"The answer is: {a}", aseg, ANSWERER, LECTURE_RATE)
             parts.append(aseg)
             parts.append(between)
-        concat(parts, out)
+        concat(parts, out, tmp)
 
 
 async def build_terms(cid: str, title: str, pack_json: Path, out: Path) -> None:
@@ -185,7 +192,7 @@ async def build_terms(cid: str, title: str, pack_json: Path, out: Path) -> None:
             await say(defn, dseg, ANSWERER, LECTURE_RATE)
             parts.append(dseg)
             parts.append(between)
-        concat(parts, out)
+        concat(parts, out, tmp)
 
 
 BUILDERS = {"lecture": build_lecture, "drill": build_drill, "terms": build_terms}

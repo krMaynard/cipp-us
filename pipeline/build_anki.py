@@ -161,10 +161,11 @@ MODEL = genanki.Model(
 
 
 def _g(it: dict, key: str) -> str:
-    """Coerce a card field to a clean string. `it.get(k) or ""` (not a ""
-    default) so a missing key, a JSON null, or a non-string can't raise or leak
-    the literal "None"."""
-    return str(it.get(key) or "").strip()
+    """Coerce a card field to a clean string. Explicit None check (not
+    `... or ""`) so a real 0/False isn't silently turned into "", while a missing
+    key or a JSON null still becomes "" rather than the literal "None"."""
+    val = it.get(key)
+    return "" if val is None else str(val).strip()
 
 
 def _spell(acr: str, law: str = "") -> str:
@@ -300,7 +301,7 @@ def main() -> None:
                     it.get("law", ""), it.get("acronym", ""), it.get("year", ""),
                     it.get("citation", ""), it.get("scope", ""), it.get("trigger", ""),
                     it.get("enforcer", ""), it.get("key_facts", ""), it.get("scenario", ""),
-                    snd(clips.get("answer", "")), str(it.get("chapter", "")),
+                    snd(clips.get("answer", "")), _g(it, "chapter"),
                     snd(clips.get("scenario", "")), snd(clips.get("acronym", "")),
                     snd(clips.get("cite", "")), snd(clips.get("enf", "")),
                 ],

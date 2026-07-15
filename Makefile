@@ -31,6 +31,7 @@ all: extract combine generate audio playlist
 setup:
 	$(PY) -m pip install -r requirements.txt
 	@command -v ffmpeg >/dev/null || { echo "ERROR: ffmpeg not found"; exit 1; }
+	@command -v ffprobe >/dev/null || { echo "ERROR: ffprobe not found (needed by playlist.py)"; exit 1; }
 	@command -v claude >/dev/null || { echo "ERROR: claude CLI not found"; exit 1; }
 	@echo "setup ok"
 
