@@ -138,3 +138,42 @@ make anki               # build/cards.json -> build/cipp-us-regulations.apkg
 - **Grounding**: prompts instruct the model to teach only from the chapter text
   and not invent statutes, dates, or thresholds. Still, verify anything
   exam-critical against the book — this is a study aid, not an authority.
+
+## Practice-exam study pack (`pipeline/exam_*.py`)
+
+A parallel track that turns the **IAPP CIPP/US Practice Exam** (90 items, a
+purchased PDF — keep it out of git) into cram-ready materials in the same
+audio-first style as the textbook tracks:
+
+```
+exam PDF ──exam_extract.py──▶ build/exam/questions.json
+                                   ├─exam_cram.py──▶ cram-pack.{md,html,pdf}   (2-day plan + 90 one-line rules)
+                                   ├─exam_anki.py──▶ decks/cipp-us-practice-exam.apkg  (1 card/question, two-voice audio)
+                                   └─exam_audio.py─▶ build/exam/audio/*.mp3     (two-voice drill, 6 parts + m3u)
+```
+
+- **`exam_extract.py`** — parses the exam text into `build/exam/questions.json`:
+  stem, four options, correct answer, official rationale, domain, sub-domain and
+  scenario for all 90 items. Answers are cross-checked against both the answer-key
+  table and the rationales.
+- **`exam_cram.py`** — the **Two-Day Cram Pack**: a concrete 2-day plan, domain
+  weighting (I and II are heaviest), every item compressed to a one-line rule, and
+  the must-memorize facts + classic traps. Emits Markdown + a print/dark-aware HTML
+  (render to PDF with headless Chromium).
+- **`exam_anki.py`** — an `.apkg` with one card per question (scenario + stem +
+  options on the front, correct answer + rationale + domain on the back), two-voice
+  audio (question read on the front, answer on the back). Fixed deck/model IDs and
+  per-question GUIDs, so re-import updates in place.
+- **`exam_audio.py`** — a two-voice drill of all 90 questions (Andrew asks + a
+  6-second gap + Ava answers), split into parts with an M3U playlist.
+
+A **pre-built deck is committed** at `decks/cipp-us-practice-exam.apkg` (90 cards,
+audio both sides) and the one-page **`cram-pack.html`** lives at the repo root. The
+full drill audio and `questions.json` stay in `build/` (gitignored) — same
+copyright stance as the textbook EPUB and lecture audio.
+
+> **edge-tts note:** in some environments the neural-voice endpoint stalls
+> intermittently. `exam_audio.py`/`exam_anki.py` synthesize **sequentially** with
+> a short per-call timeout, split every clip into ≤240-char sentence chunks, and
+> retry with a cooldown — assembling with `ffmpeg` only after the network phase.
+> Concurrent or long-single-utterance synthesis deadlocks there.

@@ -24,7 +24,7 @@ ONLYFLAG := $(if $(ONLY),--only $(ONLY),)
 
 DECK   ?= decks/cipp-us-regulations.apkg
 
-.PHONY: all setup extract combine generate audio playlist cards cards-from-deck anki clean distclean
+.PHONY: all setup extract combine generate audio playlist cards cards-from-deck anki clean distclean exam-extract exam-cram exam-anki exam-audio exam
 
 all: extract combine generate audio playlist
 
@@ -64,3 +64,20 @@ clean:          ## remove generated audio only
 
 distclean:      ## remove the whole build tree
 	rm -rf $(BUILD)
+
+# --- Practice-exam study pack ---------------------------------------------
+EXAMSRC ?= build/exam/exam-dump.json     # exam text (JSON dump or .txt); keep out of git
+
+exam-extract:
+	$(PY) pipeline/exam_extract.py $(EXAMSRC) build/exam/questions.json
+
+exam-cram:
+	$(PY) pipeline/exam_cram.py
+
+exam-anki:
+	$(PY) pipeline/exam_anki.py build/exam/questions.json decks/cipp-us-practice-exam.apkg
+
+exam-audio:
+	$(PY) pipeline/exam_audio.py build/exam/audio
+
+exam: exam-cram exam-anki exam-audio
