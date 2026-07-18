@@ -94,6 +94,18 @@ def chapter_to_markdown(html: str) -> tuple[str, str]:
             continue
 
         role = role_for(tag.get("class", []))
+        # Most source files are InDesign exports whose paragraph classes carry
+        # the structure, but retain ordinary semantic HTML when another EPUB
+        # uses real heading/list elements without those classes.
+        if role == "body":
+            role = {
+                "h1": "title",
+                "h2": "_11-A-Head",
+                "h3": "_12-B-Head",
+                "h4": "_13-C-Head",
+                "h5": "_13-C-Head",
+                "li": "list",
+            }.get(tag.name, role)
         if role == "drop":
             continue
         text = clean_text(tag.get_text(" ", strip=True))

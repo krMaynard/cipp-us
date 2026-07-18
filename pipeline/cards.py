@@ -58,9 +58,14 @@ def gen_cards(chapter_md: str) -> list[dict]:
     for it in items:
         if not isinstance(it, dict):
             continue
-        # `it.get(k) or ""` (not a "" default) so a JSON null becomes "", never the string "None".
-        if all(str(it.get(k) or "").strip() for k in REQUIRED):
-            clean.append({k: str(it.get(k) or "").strip() for k in
+        # Preserve meaningful falsy values such as 0 and False, while mapping a
+        # missing key or explicit JSON null to the empty string.
+        def get_str(key: str) -> str:
+            value = it.get(key)
+            return "" if value is None else str(value).strip()
+
+        if all(get_str(k) for k in REQUIRED):
+            clean.append({k: get_str(k) for k in
                           ("slug", "law", "acronym", "year", "citation", "scope",
                            "trigger", "enforcer", "key_facts", "scenario")})
     return clean
