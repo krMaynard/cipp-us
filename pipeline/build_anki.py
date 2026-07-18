@@ -25,6 +25,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import atexit
 import asyncio
 import json
 import re
@@ -41,9 +42,19 @@ def _trust_proxy_ca() -> None:
     try:
         import certifi
         bundle = Path(certifi.where())
-        if ca.read_text() not in bundle.read_text():
-            with bundle.open("a") as fh:
-                fh.write("\n" + ca.read_text())
+        ca_text = ca.read_text()
+        bundle_text = bundle.read_text()
+        if ca_text in bundle_text:
+            return
+        fh = tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", prefix="cipp-us-ca-", suffix=".pem", delete=False
+        )
+        with fh:
+            fh.write(bundle_text)
+            fh.write("\n" + ca_text)
+        combined = Path(fh.name)
+        atexit.register(combined.unlink, missing_ok=True)
+        certifi.where = lambda: str(combined)
     except Exception:  # noqa: BLE001
         pass
 

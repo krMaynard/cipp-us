@@ -8,8 +8,9 @@ Audio-first design — three kinds of track per chapter:
                in a second voice. Built for hands-free review.
   - terms:     "term ... short pause ... definition" glossary run-through.
 
-Uses edge-tts (Microsoft neural voices) over the network. The proxy's CA
-bundle is appended to certifi once, at import, so the WSS call validates.
+Uses edge-tts (Microsoft neural voices) over the network. When the agent proxy
+CA is present, a process-local combined CA bundle is used for WSS validation;
+the installed certifi package is never modified.
 ffmpeg concatenates the per-segment MP3s and injects the silent gaps.
 
 Usage:
@@ -19,6 +20,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import atexit
 import asyncio
 import json
 import re
@@ -36,9 +38,20 @@ def _trust_proxy_ca() -> None:
         import certifi
         bundle = Path(certifi.where())
         ca_text = ca.read_text()
-        if ca_text not in bundle.read_text():
-            with bundle.open("a") as fh:
-                fh.write("\n" + ca_text)
+        bundle_text = bundle.read_text()
+        if ca_text in bundle_text:
+            return
+        fh = tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", prefix="cipp-us-ca-", suffix=".pem", delete=False
+        )
+        with fh:
+            fh.write(bundle_text)
+            fh.write("\n" + ca_text)
+        combined = Path(fh.name)
+        atexit.register(combined.unlink, missing_ok=True)
+        # edge-tts/aiohttp consults certifi when constructing its SSL context.
+        # Patch this process only instead of changing certifi's installed file.
+        certifi.where = lambda: str(combined)
     except Exception:  # noqa: BLE001 - best effort; only needed behind the proxy
         pass
 
