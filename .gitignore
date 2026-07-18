@@ -1,0 +1,9 @@
+# Generated artifacts and the source textbook are not committed.
+build/
+source/*.epub
+
+# Keep sample outputs that ARE committed (see samples/) — they live outside build/.
+
+# Python bytecode
+__pycache__/
+*.pyc
