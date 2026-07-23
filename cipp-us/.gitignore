@@ -2,6 +2,11 @@
 build/
 source/*.epub
 
+# Practice-exam derivatives contain purchased question text and generated audio.
+# Build them locally, but do not publish them from this public repository.
+decks/*practice-exam.apkg
+cram-pack.*
+
 # Keep sample outputs that ARE committed (see samples/) — they live outside build/.
 
 # Python bytecode

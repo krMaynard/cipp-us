@@ -167,10 +167,10 @@ exam PDF ──exam_extract.py──▶ build/exam/questions.json
 - **`exam_audio.py`** — a two-voice drill of all 90 questions (Andrew asks + a
   6-second gap + Ava answers), split into parts with an M3U playlist.
 
-A **pre-built deck is committed** at `decks/cipp-us-practice-exam.apkg` (90 cards,
-audio both sides) and the one-page **`cram-pack.html`** lives at the repo root. The
-full drill audio and `questions.json` stay in `build/` (gitignored) — same
-copyright stance as the textbook EPUB and lecture audio.
+The practice-exam deck, cram pack, full drill audio, and `questions.json` are
+generated locally and remain uncommitted because they contain material derived
+from the purchased exam. Run `make exam-cram`, `make exam-anki`, or
+`make exam-audio` after placing the source exam under `build/exam/`.
 
 > **edge-tts note:** in some environments the neural-voice endpoint stalls
 > intermittently. `exam_audio.py`/`exam_anki.py` synthesize **sequentially** with
