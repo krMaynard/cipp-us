@@ -1,8 +1,9 @@
-# Generated artifacts and the source textbook are not committed.
+# Generated artifacts and purchased IAPP source material are never committed.
+# (Each cert subdir's build/ holds the extracted exam text, questions.json and
+#  the full generated audio — all derived from copyrighted IAPP publications.)
 build/
 source/*.epub
-
-# Keep sample outputs that ARE committed (see samples/) — they live outside build/.
+source/*.pdf
 
 # Python bytecode
 __pycache__/

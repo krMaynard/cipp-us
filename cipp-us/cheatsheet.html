@@ -1,0 +1,499 @@
+<title>CIPP/US — Master Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --paper:#f6f4ee; --paper-2:#efece3; --card:#fffefb;
+    --ink:#1b2333; --ink-2:#38414f; --ink-3:#5d6675;
+    --line:#d8d2c4; --line-2:#e6e1d5;
+    --statute:#8c2f28; --statute-soft:#f0e2df;
+    --trap:#8a5a12; --trap-soft:#f4ebd8; --trap-line:#e2cfa2;
+    --seal:#1b2333;
+    --ff-display:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --ff-body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --ff-mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:#141821; --paper-2:#1a1f2a; --card:#1d2330;
+      --ink:#eef1f6; --ink-2:#c3cad6; --ink-3:#8d97a7;
+      --line:#2c3444; --line-2:#242c3a;
+      --statute:#e07a70; --statute-soft:#3a2422;
+      --trap:#e0b563; --trap-soft:#332a17; --trap-line:#4a3c1e;
+      --seal:#e07a70;
+    }
+  }
+  :root[data-theme="light"] {
+    --paper:#f6f4ee; --paper-2:#efece3; --card:#fffefb;
+    --ink:#1b2333; --ink-2:#38414f; --ink-3:#5d6675;
+    --line:#d8d2c4; --line-2:#e6e1d5;
+    --statute:#8c2f28; --statute-soft:#f0e2df;
+    --trap:#8a5a12; --trap-soft:#f4ebd8; --trap-line:#e2cfa2; --seal:#1b2333;
+  }
+  :root[data-theme="dark"] {
+    --paper:#141821; --paper-2:#1a1f2a; --card:#1d2330;
+    --ink:#eef1f6; --ink-2:#c3cad6; --ink-3:#8d97a7;
+    --line:#2c3444; --line-2:#242c3a;
+    --statute:#e07a70; --statute-soft:#3a2422;
+    --trap:#e0b563; --trap-soft:#332a17; --trap-line:#4a3c1e; --seal:#e07a70;
+  }
+
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body {
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--ff-body); line-height:1.5;
+    font-size:15px; letter-spacing:.005em;
+  }
+  .wrap { max-width:1180px; margin:0 auto; padding:clamp(20px,4vw,52px) clamp(16px,4vw,44px) 64px; }
+
+  /* ---- masthead ---- */
+  .mast { border-bottom:2px solid var(--ink); padding-bottom:20px; margin-bottom:26px; }
+  .kicker {
+    font-family:var(--ff-mono); font-size:11.5px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--statute); font-weight:600; margin:0 0 10px;
+  }
+  h1 {
+    font-family:var(--ff-display); font-weight:700; letter-spacing:-.01em;
+    font-size:clamp(30px,5.4vw,52px); line-height:1.02; margin:0; text-wrap:balance;
+  }
+  h1 .sub { display:block; font-style:italic; font-weight:400; color:var(--ink-3);
+    font-size:clamp(15px,2.4vw,20px); letter-spacing:0; margin-top:10px; }
+  .mast-meta { margin-top:16px; font-size:12.5px; color:var(--ink-3);
+    display:flex; flex-wrap:wrap; gap:6px 18px; font-family:var(--ff-mono); }
+  .mast-meta b { color:var(--ink-2); font-weight:600; }
+
+  /* ---- the four lenses ---- */
+  .lenses {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line);
+    margin:0 0 34px; border-radius:8px; overflow:hidden;
+  }
+  .lens { background:var(--card); padding:14px 16px; }
+  .lens .n { font-family:var(--ff-mono); font-size:11px; color:var(--statute);
+    letter-spacing:.1em; font-weight:600; }
+  .lens .q { font-family:var(--ff-display); font-size:17px; margin:4px 0 3px; font-weight:700; }
+  .lens .d { font-size:12.5px; color:var(--ink-3); line-height:1.4; }
+
+  /* ---- section headers ---- */
+  .sec { margin:38px 0 16px; display:flex; align-items:baseline; gap:14px; }
+  .sec h2 {
+    font-family:var(--ff-display); font-size:22px; font-weight:700; margin:0;
+    letter-spacing:-.01em;
+  }
+  .sec .rule { flex:1; height:1px; background:var(--line); }
+  .sec .tag { font-family:var(--ff-mono); font-size:11px; color:var(--ink-3);
+    letter-spacing:.12em; text-transform:uppercase; }
+
+  /* ---- foundations quick strip ---- */
+  .found { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+  .fcard { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:15px 17px; }
+  .fcard h3 { margin:0 0 7px; font-family:var(--ff-display); font-size:16px; font-weight:700; }
+  .fcard ul { margin:0; padding-left:0; list-style:none; }
+  .fcard li { font-size:13px; color:var(--ink-2); padding:3px 0 3px 16px; position:relative; line-height:1.42; }
+  .fcard li::before { content:"§"; position:absolute; left:0; color:var(--statute);
+    font-family:var(--ff-mono); font-size:12px; top:3px; }
+  .fcard li b { color:var(--ink); font-weight:600; }
+
+  /* ---- law cards grid ---- */
+  .laws { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:14px; }
+  .law { background:var(--card); border:1px solid var(--line); border-radius:9px;
+    padding:16px 18px 15px; display:flex; flex-direction:column; }
+  .law-h { display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+  .law-h .name { font-family:var(--ff-display); font-size:18px; font-weight:700; letter-spacing:-.01em; }
+  .law-h .cite { font-family:var(--ff-mono); font-size:11px; color:var(--statute);
+    background:var(--statute-soft); padding:2px 7px; border-radius:4px; white-space:nowrap; }
+  .law-full { font-size:12px; color:var(--ink-3); font-style:italic; margin:2px 0 11px; }
+  .law dl { margin:0; display:grid; grid-template-columns:auto 1fr; gap:5px 12px; }
+  .law dt { font-family:var(--ff-mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-3); padding-top:2px; }
+  .law dd { margin:0; font-size:13px; color:var(--ink-2); line-height:1.4; }
+  .law dd b { color:var(--ink); font-weight:600; }
+
+  /* ---- callouts ---- */
+  .callouts { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:6px; }
+  .box { border-radius:9px; padding:16px 18px; border:1px solid var(--line); background:var(--card); }
+  .box.traps { background:var(--trap-soft); border-color:var(--trap-line); }
+  .box h3 { margin:0 0 12px; font-family:var(--ff-display); font-size:17px; font-weight:700;
+    display:flex; align-items:center; gap:8px; }
+  .box.traps h3 { color:var(--trap); }
+  .box.pairs h3 { color:var(--statute); }
+  .pair { display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:center;
+    padding:8px 0; border-top:1px solid var(--line-2); font-size:13px; }
+  .pair:first-of-type { border-top:0; }
+  .pair .a, .pair .b { line-height:1.35; }
+  .pair .a b, .pair .b b { display:block; font-family:var(--ff-display); font-size:13.5px;
+    color:var(--ink); font-weight:700; }
+  .pair .a span, .pair .b span { color:var(--ink-3); font-size:12px; }
+  .pair .vs { font-family:var(--ff-mono); font-size:10px; color:var(--statute);
+    letter-spacing:.05em; text-align:center; padding:0 2px; align-self:start; padding-top:2px; }
+  .traps ol { margin:0; padding-left:20px; }
+  .traps li { font-size:13px; color:var(--ink-2); line-height:1.46; padding:5px 0; }
+  .traps li b { color:var(--ink); font-weight:600; }
+
+  /* ---- footer ---- */
+  footer { margin-top:44px; padding-top:18px; border-top:1px solid var(--line);
+    font-size:12px; color:var(--ink-3); display:flex; flex-wrap:wrap; gap:6px 16px;
+    justify-content:space-between; font-family:var(--ff-mono); }
+
+  a.themetoggle { color:var(--ink-3); text-decoration:none; cursor:pointer; border:1px solid var(--line);
+    padding:3px 9px; border-radius:5px; }
+  a.themetoggle:hover { color:var(--ink); border-color:var(--ink-3); }
+  :focus-visible { outline:2px solid var(--statute); outline-offset:2px; border-radius:3px; }
+
+  @media (max-width:760px) {
+    .lenses { grid-template-columns:1fr 1fr; }
+    .callouts { grid-template-columns:1fr; }
+  }
+  @media (max-width:440px) { .lenses { grid-template-columns:1fr; } }
+
+  @media print {
+    :root { --paper:#fff; --card:#fff; --paper-2:#fff; }
+    body { font-size:10.5px; }
+    .wrap { max-width:none; padding:0; }
+    .law, .fcard, .box, .lens { break-inside:avoid; }
+    .laws { grid-template-columns:1fr 1fr 1fr; gap:8px; }
+    footer .themetoggle { display:none; }
+    h1 { font-size:30px; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="kicker">Certification Master Sheet · U.S. Private-Sector Privacy</p>
+    <h1>CIPP/US — The Things to Master
+      <span class="sub">Every law on this sheet: know who it covers, what trips it, who enforces it, and what it costs.</span>
+    </h1>
+    <div class="mast-meta">
+      <span><b>Source:</b> IAPP US Private-Sector Privacy, 4th ed.</span>
+      <span><b>Scope:</b> federal sector laws · state laws · enforcement · workplace · international</span>
+      <span><b>Format:</b> quick-reference, print-ready</span>
+    </div>
+  </header>
+
+  <section class="lenses" aria-label="The four questions to ask about any privacy law">
+    <div class="lens"><div class="n">LENS 01</div><div class="q">Who's covered?</div><div class="d">The regulated entity &amp; the protected data — scope is the #1 tested distinction.</div></div>
+    <div class="lens"><div class="n">LENS 02</div><div class="q">What triggers it?</div><div class="d">The threshold, event, or act that pulls conduct into the statute.</div></div>
+    <div class="lens"><div class="n">LENS 03</div><div class="q">Who enforces?</div><div class="d">FTC, a sector regulator, state AGs — and whether a private right of action exists.</div></div>
+    <div class="lens"><div class="n">LENS 04</div><div class="q">What's the remedy?</div><div class="d">Consent decrees, civil penalties, damages — the consequence of getting it wrong.</div></div>
+  </section>
+
+  <div class="sec"><h2>Foundations</h2><span class="rule"></span><span class="tag">Ch. 1–2 · always tested</span></div>
+  <div class="found">
+    <div class="fcard">
+      <h3>Fair Information Practices (FIPs)</h3>
+      <ul>
+        <li><b>Rights of individuals</b> — notice, access, choice</li>
+        <li><b>Controls on information</b> — security, data quality</li>
+        <li><b>Information life cycle</b> — collection, use, retention, disclosure</li>
+        <li><b>Management</b> — accountability, oversight</li>
+        <li>Canon: <b>OECD Guidelines (1980)</b>, <b>Convention 108</b>, HEW 1973 report</li>
+      </ul>
+    </div>
+    <div class="fcard">
+      <h3>Four Models of Data Protection</h3>
+      <ul>
+        <li><b>Comprehensive</b> — one omnibus law (EU/GDPR)</li>
+        <li><b>Sectoral</b> — patchwork by industry (the U.S. approach)</li>
+        <li><b>Co-/self-regulatory</b> — codes of conduct, seal programs</li>
+        <li><b>Technology-based</b> — privacy protected by tools (encryption)</li>
+      </ul>
+    </div>
+    <div class="fcard">
+      <h3>Sources of U.S. Privacy Law</h3>
+      <ul>
+        <li><b>Constitutional</b> — 1st/4th Amend.; limits <i>government</i>, not private actors</li>
+        <li><b>Legislative</b> — federal &amp; state statutes</li>
+        <li><b>Regulatory</b> — agency rules (FTC, HHS, FCC)</li>
+        <li><b>Common law</b> — the 4 privacy torts (Prosser)</li>
+        <li><b>Preemption</b> — when federal law displaces state law (or sets a floor)</li>
+      </ul>
+    </div>
+    <div class="fcard">
+      <h3>Processing Roles &amp; Choice</h3>
+      <ul>
+        <li><b>Controller</b> decides purposes/means; <b>processor</b> acts on its behalf</li>
+        <li><b>Data subject</b> — the identified individual</li>
+        <li><b>Opt-in</b> (affirmative consent) vs <b>opt-out</b> (default yes)</li>
+        <li><b>PII</b> vs de-identified: <b>pseudonymized</b> reverses, <b>anonymized</b> does not</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec"><h2>Core Federal Sector Laws</h2><span class="rule"></span><span class="tag">the high-yield block</span></div>
+  <div class="laws">
+
+    <article class="law">
+      <div class="law-h"><span class="name">FCRA</span><span class="cite">15 U.S.C. §1681</span></div>
+      <div class="law-full">Fair Credit Reporting Act (1970) · amended by FACTA (2003)</div>
+      <dl>
+        <dt>Covers</dt><dd><b>Consumer reporting agencies</b>, furnishers &amp; users of consumer reports (credit, eligibility).</dd>
+        <dt>Trigger</dt><dd>Using a report for a <b>permissible purpose</b> (credit, employment, insurance).</dd>
+        <dt>Key rule</dt><dd>Employment screening needs <b>disclosure + written authorization</b>; adverse action requires pre- &amp; post-notice.</dd>
+        <dt>Enforcer</dt><dd>FTC &amp; <b>CFPB</b>; private right of action.</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">GLBA</span><span class="cite">15 U.S.C. §6801</span></div>
+      <div class="law-full">Gramm-Leach-Bliley Act (1999) — financial privacy</div>
+      <dl>
+        <dt>Covers</dt><dd><b>Financial institutions</b> &amp; their nonpublic personal information (NPI).</dd>
+        <dt>Trigger</dt><dd>Sharing NPI with <b>nonaffiliated third parties</b>.</dd>
+        <dt>Key rule</dt><dd><b>Privacy Rule</b> (notice + opt-out) + <b>Safeguards Rule</b> (security program); <b>pretexting</b> banned.</dd>
+        <dt>Enforcer</dt><dd>FTC, CFPB, banking regulators; <b>no</b> private right of action.</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">HIPAA</span><span class="cite">42 U.S.C. §1320d</span></div>
+      <div class="law-full">Health Insurance Portability &amp; Accountability Act (1996) · HITECH (2009)</div>
+      <dl>
+        <dt>Covers</dt><dd><b>Covered entities</b> (plans, clearinghouses, providers billing electronically) + <b>business associates</b>.</dd>
+        <dt>Trigger</dt><dd>Use/disclosure of <b>PHI</b> (protected health information).</dd>
+        <dt>Key rule</dt><dd>Privacy, Security &amp; <b>Breach Notification</b> Rules; breach notice within <b>60 days</b>.</dd>
+        <dt>Enforcer</dt><dd><b>HHS Office for Civil Rights</b>; state AGs (via HITECH).</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">COPPA</span><span class="cite">15 U.S.C. §6501</span></div>
+      <div class="law-full">Children's Online Privacy Protection Act (1998)</div>
+      <dl>
+        <dt>Covers</dt><dd>Operators of sites/services <b>directed to children under 13</b>, or with actual knowledge.</dd>
+        <dt>Trigger</dt><dd>Collecting personal info from a child under 13.</dd>
+        <dt>Key rule</dt><dd><b>Verifiable parental consent</b> before collection; clear privacy notice.</dd>
+        <dt>Enforcer</dt><dd>FTC &amp; state AGs.</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">FERPA</span><span class="cite">20 U.S.C. §1232g</span></div>
+      <div class="law-full">Family Educational Rights &amp; Privacy Act (1974)</div>
+      <dl>
+        <dt>Covers</dt><dd>Schools &amp; institutions <b>receiving federal funds</b>; <b>education records</b>.</dd>
+        <dt>Trigger</dt><dd>Disclosing records without consent (rights transfer to student at 18 / postsecondary).</dd>
+        <dt>Key rule</dt><dd>Parents/students get <b>access &amp; amendment</b>; directory-info opt-out.</dd>
+        <dt>Enforcer</dt><dd><b>Dept. of Education</b>; funding withdrawal, no private right of action.</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">TCPA</span><span class="cite">47 U.S.C. §227</span></div>
+      <div class="law-full">Telephone Consumer Protection Act (1991)</div>
+      <dl>
+        <dt>Covers</dt><dd>Calls, texts, faxes via autodialers/prerecorded voice.</dd>
+        <dt>Trigger</dt><dd>Marketing contact without <b>prior express (written) consent</b>.</dd>
+        <dt>Key rule</dt><dd>Consent + do-not-call honoring; <b>opt-in</b> regime.</dd>
+        <dt>Enforcer</dt><dd><b>FCC</b>; strong <b>private right of action</b> ($500–$1,500/call).</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">CAN-SPAM</span><span class="cite">15 U.S.C. §7701</span></div>
+      <div class="law-full">Controlling the Assault of Non-Solicited Pornography &amp; Marketing (2003)</div>
+      <dl>
+        <dt>Covers</dt><dd>Senders of <b>commercial email</b>.</dd>
+        <dt>Trigger</dt><dd>Sending — <b>no prior consent needed</b> (opt-out regime).</dd>
+        <dt>Key rule</dt><dd>Honest headers, valid physical address, working opt-out honored within <b>10 business days</b>.</dd>
+        <dt>Enforcer</dt><dd>FTC; <b>no</b> private right of action (ISPs may sue).</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">TSR / DNC</span><span class="cite">16 C.F.R. §310</span></div>
+      <div class="law-full">Telemarketing Sales Rule &amp; National Do-Not-Call Registry</div>
+      <dl>
+        <dt>Covers</dt><dd>Telemarketers &amp; sellers making outbound calls.</dd>
+        <dt>Trigger</dt><dd>Calling a registered number / abandoning calls.</dd>
+        <dt>Key rule</dt><dd>Scrub against the <b>DNC Registry</b>; disclosures; established-business-relationship exception.</dd>
+        <dt>Enforcer</dt><dd>FTC &amp; FCC.</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">ECPA</span><span class="cite">18 U.S.C. §2510</span></div>
+      <div class="law-full">Electronic Communications Privacy Act (1986)</div>
+      <dl>
+        <dt>Covers</dt><dd>Interception &amp; access to electronic communications.</dd>
+        <dt>Trigger</dt><dd><b>Wiretap Act</b>: intercepting <b>in transit</b>. <b>SCA</b>: accessing <b>stored</b> comms.</dd>
+        <dt>Key rule</dt><dd>One-party consent (federal); business/provider exceptions.</dd>
+        <dt>Enforcer</dt><dd>DOJ; private right of action.</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">FTC §5</span><span class="cite">15 U.S.C. §45</span></div>
+      <div class="law-full">FTC Act — the de facto federal privacy enforcer</div>
+      <dl>
+        <dt>Covers</dt><dd>Almost all commerce (banks, common carriers, nonprofits excepted).</dd>
+        <dt>Trigger</dt><dd><b>Unfair OR deceptive</b> acts or practices — e.g. breaking your own privacy policy.</dd>
+        <dt>Key rule</dt><dd>Deception = misleading a reasonable consumer; unfairness = substantial, unavoidable, un-outweighed harm.</dd>
+        <dt>Enforcer</dt><dd><b>FTC</b> via <b>consent decrees</b> (often 20-yr).</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">VPPA · DPPA</span><span class="cite">18 U.S.C. §2710 / §2721</span></div>
+      <div class="law-full">Video Privacy Protection Act · Driver's Privacy Protection Act</div>
+      <dl>
+        <dt>Covers</dt><dd><b>VPPA:</b> video/streaming rental records. <b>DPPA:</b> state DMV records.</dd>
+        <dt>Trigger</dt><dd>Disclosing viewing history / motor-vehicle records without consent.</dd>
+        <dt>Key rule</dt><dd>Narrow, subject-specific consent regimes.</dd>
+        <dt>Enforcer</dt><dd>Private right of action (both).</dd>
+      </dl>
+    </article>
+
+    <article class="law">
+      <div class="law-h"><span class="name">Workplace stack</span><span class="cite">multi-statute</span></div>
+      <div class="law-full">Employment privacy is layered, not one law</div>
+      <dl>
+        <dt>Hiring</dt><dd><b>FCRA</b> background checks; <b>EPPA</b> (polygraph limits); <b>GINA</b> (genetic); ADA.</dd>
+        <dt>On the job</dt><dd><b>ECPA</b> monitoring; <b>NLRA §7</b> protects concerted activity.</dd>
+        <dt>Key rule</dt><dd>Reduce reasonable expectation of privacy via clear policy &amp; notice.</dd>
+        <dt>Enforcer</dt><dd>EEOC, DOL, NLRB, FTC.</dd>
+      </dl>
+    </article>
+
+  </div>
+
+  <div class="sec"><h2>State Laws &amp; Breach Notification</h2><span class="rule"></span><span class="tag">fast-moving · high-yield</span></div>
+  <div class="found">
+    <div class="fcard">
+      <h3>Comprehensive State Privacy Laws</h3>
+      <ul>
+        <li><b>CCPA/CPRA (California)</b> — know, delete, correct, opt-out of <b>sale/sharing</b>; enforced by the <b>CPPA</b> + AG</li>
+        <li><b>VCDPA (Virginia)</b>, <b>CPA (Colorado)</b>, CTDPA, UCPA — controller/processor model</li>
+        <li>Common rights: access, deletion, portability, opt-out of targeted ads &amp; sale</li>
+        <li>Mostly <b>no private right of action</b> (CCPA: limited, for breaches)</li>
+      </ul>
+    </div>
+    <div class="fcard">
+      <h3>Breach Notification (all 50 states)</h3>
+      <ul>
+        <li>Triggered by unauthorized acquisition of <b>personal information</b> (name + SSN, financial, etc.)</li>
+        <li><b>Risk-of-harm</b> threshold in many states; some are per-se</li>
+        <li>Notify <b>affected residents</b>; often the <b>state AG</b> &amp; credit bureaus above a count</li>
+        <li>Timing "without unreasonable delay" — some fixed (e.g. 30/45/60 days)</li>
+      </ul>
+    </div>
+    <div class="fcard">
+      <h3>Data Security &amp; Destruction</h3>
+      <ul>
+        <li>State <b>data security</b> laws require "reasonable" safeguards (e.g. MA 201 CMR 17)</li>
+        <li><b>Data destruction</b> laws mandate secure disposal of records</li>
+        <li>NY <b>SHIELD Act</b> broadened both breach + security duties</li>
+      </ul>
+    </div>
+    <div class="fcard">
+      <h3>Government &amp; Civil Litigation</h3>
+      <ul>
+        <li><b>e-Discovery</b> — preserve/produce ESI; privacy vs. relevance</li>
+        <li>Gov't access to data: <b>ECPA/SCA</b>, subpoenas, warrants; <b>CLOUD Act</b> cross-border</li>
+        <li><b>Privacy Act of 1974</b> governs federal agency records</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec"><h2>International &amp; Cross-Border</h2><span class="rule"></span><span class="tag">Ch. 14 · GDPR touchpoints</span></div>
+  <div class="found">
+    <div class="fcard">
+      <h3>GDPR Essentials (for U.S. companies)</h3>
+      <ul>
+        <li>Extraterritorial: applies to processing EU residents' data</li>
+        <li>Lawful bases (incl. <b>consent</b>, legitimate interest), DSAR rights</li>
+        <li>Fines up to <b>4% of global turnover</b> / €20M</li>
+      </ul>
+    </div>
+    <div class="fcard">
+      <h3>Transfer Mechanisms</h3>
+      <ul>
+        <li><b>Adequacy</b> decisions</li>
+        <li><b>Standard Contractual Clauses (SCCs)</b> &amp; Binding Corporate Rules</li>
+        <li><b>EU–U.S. Data Privacy Framework (DPF, 2023)</b> — replaced Privacy Shield</li>
+      </ul>
+    </div>
+    <div class="fcard">
+      <h3>Know the History</h3>
+      <ul>
+        <li>Safe Harbor → invalidated by <b>Schrems I</b></li>
+        <li>Privacy Shield → invalidated by <b>Schrems II</b> (2020)</li>
+        <li>DPF is the current bridge; SCCs still need a transfer impact assessment</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec"><h2>Highest-Value Distinctions</h2><span class="rule"></span><span class="tag">where points are won &amp; lost</span></div>
+  <div class="callouts">
+    <div class="box pairs">
+      <h3>Commonly confused pairs</h3>
+      <div class="pair">
+        <div class="a"><b>Deceptive</b><span>misleads a reasonable consumer</span></div>
+        <div class="vs">FTC §5</div>
+        <div class="b"><b>Unfair</b><span>substantial harm, unavoidable, not outweighed</span></div>
+      </div>
+      <div class="pair">
+        <div class="a"><b>Wiretap Act</b><span>intercept in transit</span></div>
+        <div class="vs">ECPA</div>
+        <div class="b"><b>Stored Comms Act</b><span>access data at rest</span></div>
+      </div>
+      <div class="pair">
+        <div class="a"><b>Opt-in</b><span>TCPA · GDPR consent</span></div>
+        <div class="vs">vs</div>
+        <div class="b"><b>Opt-out</b><span>CAN-SPAM · GLBA sharing</span></div>
+      </div>
+      <div class="pair">
+        <div class="a"><b>Covered entity</b><span>plan, clearinghouse, provider</span></div>
+        <div class="vs">HIPAA</div>
+        <div class="b"><b>Business associate</b><span>vendor handling PHI, under a BAA</span></div>
+      </div>
+      <div class="pair">
+        <div class="a"><b>FCRA</b><span>the base credit-reporting law</span></div>
+        <div class="vs">vs</div>
+        <div class="b"><b>FACTA</b><span>2003 amendments: Red Flags, disposal, truncation</span></div>
+      </div>
+      <div class="pair">
+        <div class="a"><b>Privacy Rule</b><span>GLBA notice + opt-out</span></div>
+        <div class="vs">GLBA</div>
+        <div class="b"><b>Safeguards Rule</b><span>written security program</span></div>
+      </div>
+    </div>
+
+    <div class="box traps">
+      <h3>Exam traps</h3>
+      <ol>
+        <li>The <b>Constitution limits government</b>, not private companies — a private employer isn't bound by the 4th Amendment.</li>
+        <li><b>CAN-SPAM is opt-out</b> and needs no prior consent; <b>TCPA is opt-in</b>. Don't swap them.</li>
+        <li><b>GLBA and CAN-SPAM have no private right of action</b>; FCRA, TCPA, VPPA, ECPA do.</li>
+        <li>HIPAA covers <b>covered entities &amp; business associates</b> — not every entity holding health data (a fitness app usually isn't covered).</li>
+        <li><b>COPPA = under 13</b>, not 18. "Actual knowledge" also triggers it.</li>
+        <li>The <b>FTC</b> is the primary federal privacy cop, acting through <b>§5 "unfair or deceptive,"</b> usually via consent decrees — there's no single U.S. omnibus privacy statute.</li>
+        <li>Breaking your <b>own posted privacy policy</b> is the classic FTC "deceptive" case.</li>
+        <li><b>Preemption cuts both ways</b>: some federal laws set a floor states can exceed; others fully preempt.</li>
+      </ol>
+    </div>
+  </div>
+
+  <footer>
+    <span>Generated from the IAPP CIPP/US study pipeline · study aid, verify specifics against the current Body of Knowledge</span>
+    <a class="themetoggle" role="button" tabindex="0" id="tt">◐ Toggle theme</a>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var t = document.getElementById('tt');
+    function cur() {
+      var r = document.documentElement.getAttribute('data-theme');
+      if (r) return r;
+      return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    function flip() {
+      var next = cur() === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+    }
+    t.addEventListener('click', flip);
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+    });
+  })();
+</script>
